@@ -31,7 +31,7 @@ s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 s.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
 
 s.bind((host,port))
-s.listen(1)
+s.listen(2)
 
 while 1:
     try:
@@ -44,9 +44,9 @@ while 1:
         continue
     try:
         while 1:
-
             data = clientsock.recv(4096)
             if not len(data):
+                time.sleep(2)
                 break
             #print(str(clientsock.getpeername()[0]+':'+str(data)))
             print(data)
@@ -74,9 +74,11 @@ while 1:
     except (KeyboardInterrupt,SystemExit):
         raise
     except:
+
         traceback.print_exc()
 
     try:
+        print("connect close  ")
         clientsock.close()
     except KeyboardInterrupt:
         raise
